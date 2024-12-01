@@ -1,3 +1,1 @@
-pub mod Input;
-
-pub use Input;
+pub mod input;

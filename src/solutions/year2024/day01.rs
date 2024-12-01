@@ -1,7 +1,6 @@
-use std::{collections::HashMap, error::Error, fs::read_to_string};
+use std::{collections::HashMap, error::Error};
 
-use crate::utils::Input::{Input, get_input};
-
+use crate::utils::input::{Input, get_input};
 pub fn solve(input: (Input, Input)) -> Result<(String, String), Box<dyn Error>> {
     let output_1 = part_01(input.0)?;
     let output_2 = part_02(input.1)?;
@@ -13,8 +12,8 @@ pub fn solve(input: (Input, Input)) -> Result<(String, String), Box<dyn Error>> 
 fn part_01(input:  Input) -> Result<String, Box<dyn Error>> {
     let input = get_input(input)?; 
 
-    let mut left = Vec::new();
-    let mut right = Vec::new();
+    let mut left: Vec<i32> = Vec::new();
+    let mut right: Vec<i32> = Vec::new();
 
     for line in input.lines() {
         let mut numbers = line.split_whitespace();
@@ -63,8 +62,8 @@ fn part_02(input: Input) -> Result<String, Box<dyn Error>> {
         *map.entry(num).or_insert(0) += 1; 
     }
 
-    let sum = left.iter()
-        .filter_map(|l| map.get(l).map(|r| l* r))
+    let sum: i32 = left.iter()
+        .filter_map(|l| map.get(l).map(|r| l * r))
         .sum();
 
     Ok(sum.to_string())
