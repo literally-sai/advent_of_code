@@ -1,16 +1,17 @@
 use std::error::Error;
 
 use crate::utils::input::{Input, get_input};
+use crate::utils::output::Output;
 
-pub fn solve(input: (Input, Input)) -> Result<(String, String), Box<dyn Error>> {
-    let output_1 = part_01(input.0)?;
-    let output_2 = "hello".to_string();
+pub fn solve(input: Input) -> Result<Output, Box<dyn Error>> {
+    let part_1 = part_01(&input)?;
+    let part_2 = part_2(&input)?;
 
-    Ok((output_1, output_2))
+    Ok(Output::new(&part_1, &part_2))
 }
 
-fn part_01(input: Input) -> Result<String, Box<dyn Error>> {
-    let input = get_input(input)?;
+fn part_01(input: &Input) -> Result<String, Box<dyn Error>> {
+    let input = get_input(&input)?;
 
     let safe_levels = input
         .lines()
@@ -57,4 +58,36 @@ fn is_safe_report(numbers: &[i32]) -> bool {
     }
 
     return true;
+}
+
+fn part_2(input: &Input) -> Result<String, Box<dyn Error>> {
+    let input = get_input(&input)?;
+
+    let safe_levels = input
+        .lines()
+        .filter(|line| {
+            let numbers: Vec<i32> = line
+                .split_whitespace()
+                .filter_map(|num| num.parse::<i32>().ok())
+                .collect();
+
+            is_safe_report_with_dampener(&numbers)
+        }).count();
+
+    Ok(safe_levels.to_string())
+}
+
+fn is_safe_report_with_dampener(numbers: &[i32]) -> bool {
+    if is_safe_report(numbers) {
+        return true;
+    }
+
+    for i in 0..numbers.len() {
+        let mut reduced_numbers = numbers.to_vec();
+        reduced_numbers.remove(i);
+        if is_safe_report(&reduced_numbers) {
+            return true;
+        }
+    }
+    false
 }

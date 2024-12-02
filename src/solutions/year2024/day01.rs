@@ -1,15 +1,17 @@
 use std::{collections::HashMap, error::Error};
 
 use crate::utils::input::{Input, get_input};
-pub fn solve(input: (Input, Input)) -> Result<(String, String), Box<dyn Error>> {
-    let output_1 = part_01(input.0)?;
-    let output_2 = part_02(input.1)?;
+use crate::utils::output::Output;
 
-    Ok((output_1, output_2))
+pub fn solve(input: Input) -> Result<Output, Box<dyn Error>> {
+    let output_1 = part_01(&input)?;
+    let output_2 = part_02(&input)?;
+
+    Ok(Output::new(&output_1, &output_2))
 }
 
 
-fn part_01(input:  Input) -> Result<String, Box<dyn Error>> {
+fn part_01(input: &Input) -> Result<String, Box<dyn Error>> {
     let input = get_input(input)?; 
 
     let mut left: Vec<i32> = Vec::new();
@@ -42,7 +44,7 @@ fn part_01(input:  Input) -> Result<String, Box<dyn Error>> {
     Ok(distance.to_string())
 }
 
-fn part_02(input: Input) -> Result<String, Box<dyn Error>> {
+fn part_02(input: &Input) -> Result<String, Box<dyn Error>> {
     let input = get_input(input)?;
 
     let mut left = Vec::new();
