@@ -1,6 +1,6 @@
 pub struct Output {
-    part_1: String,
-    part_2: String,
+    pub part_1: String,
+    pub part_2: String,
 }
 
 impl Output {
