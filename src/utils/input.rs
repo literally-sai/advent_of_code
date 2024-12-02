@@ -5,9 +5,9 @@ pub enum Input {
     Text(String),
 }
 
-pub fn get_input(input: Input) -> Result<String, Box<dyn Error>> {
+pub fn get_input(input: &Input) -> Result<String, Box<dyn Error>> {
     match input {
         Input::Path(ref path) => Ok(read_to_string(path)?),
-        Input::Text(s) => Ok(s.clone()),
+        Input::Text(s) => Ok(s.to_string()),
     }
 }
