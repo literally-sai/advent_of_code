@@ -4,7 +4,7 @@ pub fn part1(input: &str) -> i32 {
             match step {
                 '(' => 1,
                 ')' => -1,
-                _ => 0
+                _ => panic!("Invalid step: {}", step)
             }
         }).fold(0, |acc, step| acc + step)
 }
@@ -15,7 +15,7 @@ pub fn part2(input: &str) -> i32 {
         match step {
             '(' => floor += 1,
             ')' => floor -= 1,
-            _ => ()
+            _ => panic!("Invalid step: {}", step)
         }
         if floor == -1 {
             let idx = idx as i32 + 1;
@@ -72,16 +72,14 @@ mod tests {
     #[cfg(feature = "inputfile")]
     #[test]
     fn part1_inputfile() {
-        use crate::utils::read_input::read_input;
-        let input = read_input(2015, 1).expect("Failed to read input file");
-        println!("The output for 2015 day01 part1 is {}", part1(&input));
+        use crate::utils::print_solution;
+        print_solution(2015, 1, 1, part1);
     }
 
     #[cfg(feature = "inputfile")]
     #[test]
     fn part2_inputfile() {
-        use crate::utils::read_input::read_input;
-        let input = read_input(2015, 1).expect("Failed to read input file");
-        println!("The output for 2015 day01 part2 is {}", part2(&input))
+        use crate::utils::print_solution;
+        print_solution(2015, 1, 2, part2);
     }
 }
